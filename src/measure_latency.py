@@ -63,11 +63,14 @@ def main():
     p50 = statistics.median(times_ms)
     times_sorted = sorted(times_ms)
     p95 = times_sorted[int(0.95 * len(times_sorted)) - 1]
-
+    with open("out/latency_results.txt", "w", encoding="utf-8") as f:  
+        print(f"Latency over {args.runs} runs (batch_size=1):",file=f)
+        print(f"  p50: {p50:.2f} ms",file=f)
+        print(f"  p95: {p95:.2f} ms",file=f)
     print(f"Latency over {args.runs} runs (batch_size=1):")
     print(f"  p50: {p50:.2f} ms")
     print(f"  p95: {p95:.2f} ms")
-
+    print(f"output written to out/latency_results.txt")
 
 if __name__ == "__main__":
     main()

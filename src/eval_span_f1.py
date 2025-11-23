@@ -36,6 +36,10 @@ def compute_prf(tp, fp, fn):
     return prec, rec, f1
 
 
+import os
+from collections import defaultdict
+import argparse
+
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--gold", required=True)
@@ -67,53 +71,64 @@ def main():
             if span not in p_spans:
                 fn[span[2]] += 1
 
-    print("Per-entity metrics:")
-    macro_f1_sum = 0.0
-    macro_count = 0
+    os.makedirs("out", exist_ok=True)
+    output_file = "out/metrics.txt"
 
-    for lab in sorted(labels):
-        p, r, f1 = compute_prf(tp[lab], fp[lab], fn[lab])
-        print(f"{lab:15s} P={p:.3f} R={r:.3f} F1={f1:.3f}")
-        macro_f1_sum += f1
-        macro_count += 1
+    with open(output_file, "w") as f:  # <-- open file once, everything inside this block writes to it
+        print("Per-entity metrics:", file=f)
+        print("Per-entity metrics:")  # Console output
+        macro_f1_sum = 0.0
+        macro_count = 0
 
-    macro_f1 = macro_f1_sum / max(1, macro_count)
-    print(f"\nMacro-F1: {macro_f1:.3f}")
+        for lab in sorted(labels):
+            p, r, f1 = compute_prf(tp[lab], fp[lab], fn[lab])
+            print(f"{lab:15s} P={p:.3f} R={r:.3f} F1={f1:.3f}", file=f)
+            print(f"{lab:15s} P={p:.3f} R={r:.3f} F1={f1:.3f}") # Console output
+            macro_f1_sum += f1
+            macro_count += 1
 
-    pii_tp = pii_fp = pii_fn = 0
-    non_tp = non_fp = non_fn = 0
+        macro_f1 = macro_f1_sum / max(1, macro_count)
+        print(f"\nMacro-F1: {macro_f1:.3f}", file=f)
+        print(f"\nMacro-F1: {macro_f1:.3f}") # Console output
 
-    for uid in gold.keys():
-        g_spans = gold.get(uid, [])
-        p_spans = pred.get(uid, [])
+        pii_tp = pii_fp = pii_fn = 0
+        non_tp = non_fp = non_fn = 0
 
-        g_pii = set((s, e, "PII") for s, e, lab in g_spans if label_is_pii(lab))
-        g_non = set((s, e, "NON") for s, e, lab in g_spans if not label_is_pii(lab))
-        p_pii = set((s, e, "PII") for s, e, lab in p_spans if label_is_pii(lab))
-        p_non = set((s, e, "NON") for s, e, lab in p_spans if not label_is_pii(lab))
+        for uid in gold.keys():
+            g_spans = gold.get(uid, [])
+            p_spans = pred.get(uid, [])
 
-        for span in p_pii:
-            if span in g_pii:
-                pii_tp += 1
-            else:
-                pii_fp += 1
-        for span in g_pii:
-            if span not in p_pii:
-                pii_fn += 1
+            g_pii = set((s, e, "PII") for s, e, lab in g_spans if label_is_pii(lab))
+            g_non = set((s, e, "NON") for s, e, lab in g_spans if not label_is_pii(lab))
+            p_pii = set((s, e, "PII") for s, e, lab in p_spans if label_is_pii(lab))
+            p_non = set((s, e, "NON") for s, e, lab in p_spans if not label_is_pii(lab))
 
-        for span in p_non:
-            if span in g_non:
-                non_tp += 1
-            else:
-                non_fp += 1
-        for span in g_non:
-            if span not in p_non:
-                non_fn += 1
+            for span in p_pii:
+                if span in g_pii:
+                    pii_tp += 1
+                else:
+                    pii_fp += 1
+            for span in g_pii:
+                if span not in p_pii:
+                    pii_fn += 1
 
-    p, r, f1 = compute_prf(pii_tp, pii_fp, pii_fn)
-    print(f"\nPII-only metrics: P={p:.3f} R={r:.3f} F1={f1:.3f}")
-    p2, r2, f12 = compute_prf(non_tp, non_fp, non_fn)
-    print(f"Non-PII metrics: P={p2:.3f} R={r2:.3f} F1={f12:.3f}")
+            for span in p_non:
+                if span in g_non:
+                    non_tp += 1
+                else:
+                    non_fp += 1
+            for span in g_non:
+                if span not in p_non:
+                    non_fn += 1
+
+        p, r, f1 = compute_prf(pii_tp, pii_fp, pii_fn)
+        print(f"\nPII-only metrics: P={p:.3f} R={r:.3f} F1={f1:.3f}", file=f)
+        print(f"\nPII-only metrics: P={p:.3f} R={r:.3f} F1={f1:.3f}") # Console output
+        p2, r2, f12 = compute_prf(non_tp, non_fp, non_fn)
+        print(f"Non-PII metrics: P={p2:.3f} R={r2:.3f} F1={f12:.3f}", file=f)
+        print(f"Non-PII metrics: P={p2:.3f} R={r2:.3f} F1={f12:.3f}") # Console output
+
+    print(f"Metrics written to {output_file}")  # Console output
 
 
 if __name__ == "__main__":
