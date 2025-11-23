@@ -11,20 +11,25 @@ pip install -r requirements.txt
 ## Train
 
 ```bash
-python src/train.py \
-  --model_name distilbert-base-uncased \
-  --train data/train.jsonl \
-  --dev data/dev.jsonl \
-  --out_dir out
+python src\train.py `
+    --model_name huawei-noah/TinyBERT_General_4L_312D `
+    --train data\train.jsonl `
+    --dev data\dev.jsonl `
+    --batch_size 16 `
+    --epochs 8 `
+    --lr 3e-5 `
+    --out_dir out
+
 ```
 
 ## Predict
 
 ```bash
-python src/predict.py \
-  --model_dir out \
-  --input data/dev.jsonl \
-  --output out/dev_pred.json
+python src\predict.py `
+    --model_dir out_tinybert `
+    --input data\dev.jsonl `
+    --output out\dev_pred.json
+ 
 ```
 
 ## Evaluate
