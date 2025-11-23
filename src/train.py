@@ -12,13 +12,13 @@ from model import create_model
 
 def parse_args():
     ap = argparse.ArgumentParser()
-    ap.add_argument("--model_name", default="distilbert-base-uncased")
+    ap.add_argument("--model_name", default="huawei-noah/TinyBERT_General_4L_312D")
     ap.add_argument("--train", default="data/train.jsonl")
     ap.add_argument("--dev", default="data/dev.jsonl")
     ap.add_argument("--out_dir", default="out")
-    ap.add_argument("--batch_size", type=int, default=8)
-    ap.add_argument("--epochs", type=int, default=3)
-    ap.add_argument("--lr", type=float, default=5e-5)
+    ap.add_argument("--batch_size", type=int, default=16)
+    ap.add_argument("--epochs", type=int, default=8)
+    ap.add_argument("--lr", type=float, default=3e-5)
     ap.add_argument("--max_length", type=int, default=256)
     ap.add_argument("--device", default="cuda" if torch.cuda.is_available() else "cpu")
     return ap.parse_args()
