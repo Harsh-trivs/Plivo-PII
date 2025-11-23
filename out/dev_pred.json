@@ -63,12 +63,6 @@
       "pii": true
     },
     {
-      "start": 124,
-      "end": 151,
-      "label": "CREDIT_CARD",
-      "pii": true
-    },
-    {
       "start": 234,
       "end": 242,
       "label": "PERSON_NAME",
@@ -327,13 +321,13 @@
       "pii": true
     },
     {
-      "start": 141,
-      "end": 168,
+      "start": 135,
+      "end": 163,
       "label": "PHONE",
       "pii": true
     },
     {
-      "start": 169,
+      "start": 164,
       "end": 190,
       "label": "CREDIT_CARD",
       "pii": true
@@ -448,7 +442,7 @@
   "utt_11957": [
     {
       "start": 75,
-      "end": 138,
+      "end": 126,
       "label": "CREDIT_CARD",
       "pii": true
     }
@@ -491,7 +485,7 @@
   ],
   "utt_57714": [
     {
-      "start": 153,
+      "start": 148,
       "end": 195,
       "label": "PHONE",
       "pii": true
@@ -615,14 +609,7 @@
       "pii": true
     }
   ],
-  "utt_13682": [
-    {
-      "start": 93,
-      "end": 140,
-      "label": "CREDIT_CARD",
-      "pii": true
-    }
-  ],
+  "utt_13682": [],
   "utt_73059": [
     {
       "start": 60,
@@ -986,12 +973,6 @@
     },
     {
       "start": 150,
-      "end": 153,
-      "label": "CITY",
-      "pii": false
-    },
-    {
-      "start": 154,
       "end": 158,
       "label": "LOCATION",
       "pii": false
@@ -1848,12 +1829,6 @@
     },
     {
       "start": 87,
-      "end": 92,
-      "label": "CITY",
-      "pii": false
-    },
-    {
-      "start": 93,
       "end": 99,
       "label": "LOCATION",
       "pii": false
@@ -1873,7 +1848,7 @@
       "pii": true
     },
     {
-      "start": 211,
+      "start": 205,
       "end": 252,
       "label": "PHONE",
       "pii": true
@@ -2033,12 +2008,6 @@
     },
     {
       "start": 88,
-      "end": 91,
-      "label": "CITY",
-      "pii": false
-    },
-    {
-      "start": 92,
       "end": 96,
       "label": "LOCATION",
       "pii": false
@@ -2273,12 +2242,6 @@
   "utt_12687": [
     {
       "start": 62,
-      "end": 66,
-      "label": "EMAIL",
-      "pii": true
-    },
-    {
-      "start": 67,
       "end": 73,
       "label": "LOCATION",
       "pii": false
@@ -2313,12 +2276,6 @@
     },
     {
       "start": 115,
-      "end": 118,
-      "label": "CITY",
-      "pii": false
-    },
-    {
-      "start": 119,
       "end": 123,
       "label": "LOCATION",
       "pii": false
@@ -2333,12 +2290,6 @@
   "utt_32180": [
     {
       "start": 64,
-      "end": 67,
-      "label": "CITY",
-      "pii": false
-    },
-    {
-      "start": 68,
       "end": 72,
       "label": "LOCATION",
       "pii": false

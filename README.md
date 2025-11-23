@@ -22,11 +22,19 @@ python src\train.py `
 
 ```
 
+## Hyperparameter Tuning
+
+You can perform automated hyperparameter tuning to find the best combination of learning rate, batch size, and epochs. This script will train multiple models and save the best one in the `out` directory.
+
+```bash
+python src\hyperparameter_tuning.py
+```
+
 ## Predict
 
 ```bash
 python src\predict.py `
-    --model_dir out_tinybert `
+    --model_dir out `
     --input data\dev.jsonl `
     --output out\dev_pred.json
  
